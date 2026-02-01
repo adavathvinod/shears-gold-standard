@@ -1,19 +1,33 @@
 import { useState } from 'react';
 import { X } from 'lucide-react';
-import gallery1 from '@/assets/gallery-1.png';
-import gallery2 from '@/assets/gallery-2.png';
-import gallery3 from '@/assets/gallery-3.png';
-import gallery4 from '@/assets/gallery-4.png';
-import gallery5 from '@/assets/gallery-5.png';
-import salonInterior from '@/assets/salon-interior.png';
+
+// AI Generated gallery images
+import galleryG1 from '@/assets/gallery-g1.jpg';
+import galleryG2 from '@/assets/gallery-g2.jpg';
+import galleryG3 from '@/assets/gallery-g3.jpg';
+import galleryG4 from '@/assets/gallery-g4.jpg';
+import galleryG5 from '@/assets/gallery-g5.jpg';
+import galleryG6 from '@/assets/gallery-g6.jpg';
+import galleryG7 from '@/assets/gallery-g7.jpg';
+import galleryG8 from '@/assets/gallery-g8.jpg';
+import galleryG9 from '@/assets/gallery-g9.jpg';
+import galleryG10 from '@/assets/gallery-g10.jpg';
+import galleryG11 from '@/assets/gallery-g11.jpg';
+import galleryG12 from '@/assets/gallery-g12.jpg';
 
 const galleryImages = [
-  { src: gallery1, alt: 'Celebrity client 1', category: 'Clients' },
-  { src: gallery2, alt: 'Celebrity client 2', category: 'Clients' },
-  { src: salonInterior, alt: 'Salon Interior', category: 'Salon' },
-  { src: gallery3, alt: 'Styling in action', category: 'Work' },
-  { src: gallery4, alt: 'Team with clients', category: 'Clients' },
-  { src: gallery5, alt: 'Tattoo artwork', category: 'Tattoo' },
+  { src: galleryG1, alt: 'Modern Fade Haircut', category: 'Haircuts' },
+  { src: galleryG2, alt: 'Textured Pompadour', category: 'Haircuts' },
+  { src: galleryG3, alt: 'Beard Grooming', category: 'Beard' },
+  { src: galleryG7, alt: 'Luxury Salon Interior', category: 'Salon' },
+  { src: galleryG4, alt: 'Classic Slick Back', category: 'Haircuts' },
+  { src: galleryG5, alt: 'Trendy Undercut', category: 'Haircuts' },
+  { src: galleryG6, alt: 'Hair Highlights', category: 'Color' },
+  { src: galleryG8, alt: 'Curly Hair Styling', category: 'Styling' },
+  { src: galleryG9, alt: 'Hot Towel Treatment', category: 'Experience' },
+  { src: galleryG10, alt: 'Geometric Tattoo', category: 'Tattoo' },
+  { src: galleryG11, alt: 'Sharp Fade Cut', category: 'Haircuts' },
+  { src: galleryG12, alt: 'Keratin Treatment', category: 'Treatment' },
 ];
 
 const Gallery = () => {
@@ -30,33 +44,33 @@ const Gallery = () => {
           </h2>
           <div className="w-20 h-[2px] bg-primary mx-auto mb-6" />
           <p className="text-muted-foreground max-w-xl mx-auto">
-            Trusted by celebrities, athletes, and style-conscious individuals across Hyderabad
+            Explore our portfolio of premium haircuts, styling, and transformations
           </p>
         </div>
 
-        {/* Gallery Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-6">
+        {/* Gallery Grid - Masonry style */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
           {galleryImages.map((image, index) => (
             <div
               key={index}
               onClick={() => setSelectedImage(image.src)}
               className={`relative group cursor-pointer overflow-hidden rounded-lg ${
-                index === 2 ? 'md:col-span-2 md:row-span-1' : ''
+                index === 3 || index === 8 ? 'md:col-span-2 md:row-span-2' : ''
               }`}
             >
-              <div className="aspect-square overflow-hidden">
+              <div className={`${index === 3 || index === 8 ? 'aspect-square' : 'aspect-square'} overflow-hidden`}>
                 <img
                   src={image.src}
                   alt={image.alt}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
                 />
               </div>
               
               {/* Overlay */}
-              <div className="absolute inset-0 bg-charcoal-deep/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <div className="text-center">
-                  <span className="text-primary text-xs tracking-widest uppercase">{image.category}</span>
-                </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal-deep/90 via-charcoal-deep/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-end p-4">
+                <span className="text-primary text-xs tracking-widest uppercase mb-1">{image.category}</span>
+                <span className="text-foreground text-sm font-medium text-center">{image.alt}</span>
               </div>
 
               {/* Gold border on hover */}
@@ -69,11 +83,11 @@ const Gallery = () => {
       {/* Lightbox */}
       {selectedImage && (
         <div 
-          className="fixed inset-0 z-50 bg-charcoal-deep/95 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-charcoal-deep/95 backdrop-blur-sm flex items-center justify-center p-4"
           onClick={() => setSelectedImage(null)}
         >
           <button 
-            className="absolute top-6 right-6 text-foreground hover:text-primary transition-colors"
+            className="absolute top-6 right-6 text-foreground hover:text-primary transition-colors z-10"
             onClick={() => setSelectedImage(null)}
           >
             <X size={32} />
@@ -81,7 +95,7 @@ const Gallery = () => {
           <img 
             src={selectedImage} 
             alt="Gallery preview" 
-            className="max-w-full max-h-[90vh] object-contain rounded-lg"
+            className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           />
         </div>
